@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:collection';
-import 'dart:io';
 import 'dart:math';
 
 import 'package:field_drawer/back/datasource/g_maps.dart';
@@ -24,12 +23,22 @@ class MapScreenVm extends ChangeNotifier {
 
   late final List<Coordinate> cords;
   Set<Polygon> polygon = HashSet<Polygon>();
+  late List<LatLng> points;
 
-  // created list of locations to display polygon
-   late List<LatLng> points ;
+  List<LatLng> emptyPoint = [
+    const LatLng(16.39832562876689, 53.20127189893238)
+  ];
+  List<LatLng> extractedCords = [];
 
-  // on below line we have set the camera position
-  final CameraPosition kGoogle = const CameraPosition(
+  bool showColorLayer = true;
+  bool showFabList = false;
+
+  toogleShowFabList(){
+    showFabList = !showFabList;
+    notifyListeners();
+  }
+
+  final CameraPosition camPosition = const CameraPosition(
     target: LatLng(16.39832562876689, 53.20127189893238),
     zoom: 14,
   );
@@ -38,27 +47,33 @@ class MapScreenVm extends ChangeNotifier {
     return await rootBundle.loadString('assets/entries/entry.json');
   }
 
-  String printString = '';
+  void toggleLayer() {
+    showColorLayer = !showColorLayer;
+    if (showColorLayer != true) {
+      points = emptyPoint;
+    }
+    if (showColorLayer == true) {
+      points = extractedCords;
+    }
+    polygon.clear();
 
-  void constructPolygon(){
-    polygon.add(
-        Polygon(
-          // given polygonId
-          polygonId: PolygonId('2'),
-          // initialize the list of points to display polygon
-          points: points,
-          // given color to polygon
-          fillColor: Colors.green.withOpacity(0.3),
-          // given border color to polygon
-          strokeColor: Colors.green,
-          geodesic: true,
-          // given width of border
-          strokeWidth: 4,
-        )
-    );
+    constructPolygon();
   }
 
-  // This returns a JSON encoded string of the WKT
+  String printString = '';
+
+  void constructPolygon() {
+    polygon.add(Polygon(
+      polygonId: const PolygonId('1'),
+      points: points,
+      fillColor: Colors.green.withOpacity(0.3),
+      strokeColor: Colors.green,
+      geodesic: true,
+      strokeWidth: 4,
+    ));
+
+    notifyListeners();
+  }
 
   Future<List<LatLng>> parseWkt() async {
     List<LatLng> pointsList = [];
@@ -82,19 +97,15 @@ class MapScreenVm extends ChangeNotifier {
       try {
         long = double.parse(longString);
         lati = double.parse(lingString);
-
       } on FormatException catch (e) {
         var logger = Logger();
         logger.e(e);
       }
 
-      LatLng latlang = LatLng(long,lati);
+      LatLng latlang = LatLng(long, lati);
       pointsList.add(latlang);
     }
     notifyListeners();
     return pointsList;
   }
-
-
-
 }
