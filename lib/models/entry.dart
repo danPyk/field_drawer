@@ -5,18 +5,17 @@ part 'entry.g.dart';
 
 @JsonSerializable()
 class Entry {
-
- final int id;
-final  int user;
- final String name;
- final String comment;
- final String geom;
- final List<CropHistory> cropHistory;
- final double areaAg;
- final String status;
- final double hectares;
- final double area;
- final String created;
+  final int id;
+  final int user;
+  final String name;
+  final String comment;
+  final String geom;
+  final List<CropHistory> cropHistory;
+  final double areaAg;
+  final String status;
+  final double hectares;
+  final double area;
+  final String created;
 
   Entry({
     required this.id,

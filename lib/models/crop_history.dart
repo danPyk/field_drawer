@@ -12,7 +12,7 @@ class CropHistory {
   final String startDate;
   final String endDate;
   final double yields;
-  final double yieldsForecast;
+  final double? yieldsForecast;
 
 
   CropHistory({

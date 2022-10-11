@@ -13,7 +13,7 @@ CropHistory _$CropHistoryFromJson(Map<String, dynamic> json) => CropHistory(
       startDate: json['startDate'] as String,
       endDate: json['endDate'] as String,
       yields: (json['yields'] as num).toDouble(),
-      yieldsForecast: (json['yieldsForecast'] as num).toDouble(),
+      yieldsForecast: (json['yieldsForecast'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$CropHistoryToJson(CropHistory instance) =>
