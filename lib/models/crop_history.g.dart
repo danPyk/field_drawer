@@ -10,10 +10,10 @@ CropHistory _$CropHistoryFromJson(Map<String, dynamic> json) => CropHistory(
       id: json['id'] as int,
       crop: Crop.fromJson(json['crop'] as Map<String, dynamic>),
       label: json['label'] as String,
-      startDate: json['startDate'] as String,
-      endDate: json['endDate'] as String,
+      startDate: json['start_date'] as String,
+      endDate: json['end_date'] as String,
       yields: (json['yields'] as num).toDouble(),
-      yieldsForecast: (json['yieldsForecast'] as num?)?.toDouble(),
+      yieldsForecast: (json['yields_forecast'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$CropHistoryToJson(CropHistory instance) =>
@@ -21,8 +21,8 @@ Map<String, dynamic> _$CropHistoryToJson(CropHistory instance) =>
       'id': instance.id,
       'crop': instance.crop,
       'label': instance.label,
-      'startDate': instance.startDate,
-      'endDate': instance.endDate,
+      'start_date': instance.startDate,
+      'end_date': instance.endDate,
       'yields': instance.yields,
-      'yieldsForecast': instance.yieldsForecast,
+      'yields_forecast': instance.yieldsForecast,
     };

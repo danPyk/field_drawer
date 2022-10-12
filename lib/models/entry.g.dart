@@ -12,10 +12,12 @@ Entry _$EntryFromJson(Map<String, dynamic> json) => Entry(
       name: json['name'] as String,
       comment: json['comment'] as String,
       geom: json['geom'] as String,
-      cropHistory: (json['cropHistory'] as List<dynamic>)
-          .map((e) => CropHistory.fromJson(e as Map<String, dynamic>))
+      cropHistory: (json['crop_history'] as List<dynamic>)
+          .map((e) => e == null
+              ? null
+              : CropHistory.fromJson(e as Map<String, dynamic>))
           .toList(),
-      areaAg: (json['areaAg'] as num).toDouble(),
+      areaAg: (json['area_ag'] as num).toDouble(),
       status: json['status'] as String,
       hectares: (json['hectares'] as num).toDouble(),
       area: (json['area'] as num).toDouble(),
@@ -28,8 +30,8 @@ Map<String, dynamic> _$EntryToJson(Entry instance) => <String, dynamic>{
       'name': instance.name,
       'comment': instance.comment,
       'geom': instance.geom,
-      'cropHistory': instance.cropHistory,
-      'areaAg': instance.areaAg,
+      'crop_history': instance.cropHistory,
+      'area_ag': instance.areaAg,
       'status': instance.status,
       'hectares': instance.hectares,
       'area': instance.area,
