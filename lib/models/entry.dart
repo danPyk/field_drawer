@@ -59,7 +59,7 @@ class Entry extends Equatable {
 }
 
 ///extract geom field
-Future<List<LatLng>> entryToLatLng(Entry geom) async {
+List<LatLng> entryToLatLng(Entry geom)  {
   String wkt = geom.geom;
   String cutString = wkt.substring(20, wkt.length);
 

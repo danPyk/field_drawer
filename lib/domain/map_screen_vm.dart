@@ -7,16 +7,16 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
-@injectable
+@GenerateNiceMocks([MockSpec<MapScreenVm>()])
 class MapScreenVm extends ChangeNotifier {
-  bool _showColorLayer = true;
-  bool showFabList = false;
-  bool isFirstAnimationLaunch = true;
+  bool filledRectangle = true;
 
   ///coordinates
   late List<LatLng> coordinates;
-  List<LatLng> extractedCords = [];
+  List<LatLng> savedCords = [];
   final List<LatLng> _singleCoordinate = [
     const LatLng(16.39832562876689, 53.20127189893238)
   ];
@@ -29,8 +29,12 @@ class MapScreenVm extends ChangeNotifier {
     zoom: 14,
   );
 
-  Future<String> _getAsset(String asset) async {
+  Future<String> getAssetString(String asset) async {
     return await rootBundle.loadString(asset);
+  }
+
+  void _toggleFab() {
+    filledRectangle = !filledRectangle;
   }
 
   void constructPolygon() {
@@ -46,18 +50,13 @@ class MapScreenVm extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleShowAnimatedFab() {
-    showFabList = !showFabList;
-    notifyListeners();
-  }
-
   void toggleLayer() {
-    _showColorLayer = !_showColorLayer;
-    if (_showColorLayer == false) {
+    _toggleFab();
+    if (filledRectangle == false) {
       coordinates = _singleCoordinate;
     }
-    if (_showColorLayer == true) {
-      coordinates = extractedCords;
+    if (filledRectangle == true) {
+      coordinates = savedCords;
     }
     polygon.clear();
 
@@ -65,7 +64,7 @@ class MapScreenVm extends ChangeNotifier {
   }
 
   Future<Entry> getEntry(String asset) async {
-    var wkt = await _getAsset(asset);
+    var wkt = await getAssetString(asset);
     Map<String, dynamic> jsonDecoded = json.decode(wkt);
 
     Entry geom = Entry.fromJson(jsonDecoded);
