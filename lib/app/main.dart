@@ -1,5 +1,5 @@
 import 'package:field_drawer/app/routes.router.dart';
-import 'package:field_drawer/front/widgets/setup_snackbar.dart';
+import 'package:field_drawer/front/widgets/setup_widgets.dart';
 import 'package:field_drawer/front/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
         navigatorKey: StackedService.navigatorKey,
         onGenerateRoute: StackedRouter().onGenerateRoute,
         theme: ThemeData(

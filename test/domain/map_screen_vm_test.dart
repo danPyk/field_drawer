@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:field_drawer/domain/map_screen_vm.dart';
-import 'map_screen_vm.mocks.dart';
 import 'package:field_drawer/models/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,19 +9,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   var mapScreenVm = MapScreenVm();
-  var mockMapScreenVm = MockMapScreenVm();
 
   group('domain/map_screen_vm', () {
     test('void constructPolygon() check if polygon change ', () {
       mapScreenVm.coordinates = [];
       mapScreenVm.constructPolygon();
       expect(mapScreenVm.polygon.isNotEmpty, true);
-    });
-    test('void constructPolygon() check if polygon didnt change ', () {
-      mapScreenVm.coordinates = [];
-      mapScreenVm.constructPolygon();
-      mapScreenVm.polygon.clear();
-      expect(mapScreenVm.polygon.isEmpty, true);
     });
 
     test('void toggleLayer() check if polygon was cleared ', () {
@@ -37,8 +29,8 @@ void main() {
       polygon.add(Polygon(polygonId: PolygonId('1')));
       expect(polygon.isEmpty, false);
     });
-    test(' getAsset() convert json to String ', () async {
-      var asset = await mockMapScreenVm
+    test(' getAsset() convert json to String, correct type', () async {
+      var asset = await mapScreenVm
           .getAssetString('assets/entries/entry_test.json');
       expect(asset.runtimeType, String);
     });

@@ -4,14 +4,13 @@ import 'dart:collection';
 import 'package:field_drawer/models/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:injectable/injectable.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 
 @GenerateNiceMocks([MockSpec<MapScreenVm>()])
 class MapScreenVm extends ChangeNotifier {
+  ///fab icon
   bool filledRectangle = true;
 
   ///coordinates
@@ -32,7 +31,7 @@ class MapScreenVm extends ChangeNotifier {
   Future<String> getAssetString(String asset) async {
     return await rootBundle.loadString(asset);
   }
-
+  ///change Fab icon
   void _toggleFab() {
     filledRectangle = !filledRectangle;
   }

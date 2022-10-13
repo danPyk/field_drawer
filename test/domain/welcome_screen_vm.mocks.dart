@@ -33,20 +33,9 @@ class _FakePermissionsService_0 extends _i1.SmartFake
         );
 }
 
-class _FakeNavigationService_1 extends _i1.SmartFake
-    implements _i3.NavigationService {
-  _FakeNavigationService_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeSnackbarService_2 extends _i1.SmartFake
+class _FakeSnackbarService_1 extends _i1.SmartFake
     implements _i3.SnackbarService {
-  _FakeSnackbarService_2(
+  _FakeSnackbarService_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -72,25 +61,13 @@ class MockWelcomeScreenVm extends _i1.Mock implements _i4.WelcomeScreenVm {
         ),
       ) as _i2.PermissionsService);
   @override
-  _i3.NavigationService get navServ => (super.noSuchMethod(
-        Invocation.getter(#navServ),
-        returnValue: _FakeNavigationService_1(
-          this,
-          Invocation.getter(#navServ),
-        ),
-        returnValueForMissingStub: _FakeNavigationService_1(
-          this,
-          Invocation.getter(#navServ),
-        ),
-      ) as _i3.NavigationService);
-  @override
   _i3.SnackbarService get snackbarService => (super.noSuchMethod(
         Invocation.getter(#snackbarService),
-        returnValue: _FakeSnackbarService_2(
+        returnValue: _FakeSnackbarService_1(
           this,
           Invocation.getter(#snackbarService),
         ),
-        returnValueForMissingStub: _FakeSnackbarService_2(
+        returnValueForMissingStub: _FakeSnackbarService_1(
           this,
           Invocation.getter(#snackbarService),
         ),

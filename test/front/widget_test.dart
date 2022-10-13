@@ -1,5 +1,3 @@
-import 'package:field_drawer/front/screens/map_screen.dart';
-import 'package:field_drawer/front/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

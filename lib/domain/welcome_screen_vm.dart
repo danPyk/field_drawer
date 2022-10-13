@@ -1,3 +1,4 @@
+import 'package:field_drawer/app/injection.dart';
 import 'package:field_drawer/app/routes.router.dart';
 import 'package:field_drawer/back/permissions.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,13 +12,25 @@ import 'package:stacked_services/stacked_services.dart';
 @GenerateNiceMocks([MockSpec<WelcomeScreenVm>()])
 class WelcomeScreenVm extends ChangeNotifier {
   WelcomeScreenVm(
-      {required this.permissionsService,
-      required this.navServ,
-      required this.snackbarService});
+      {required this.permissionsService, required this.snackbarService});
 
   final PermissionsService permissionsService;
-  final NavigationService navServ;
   final SnackbarService snackbarService;
+
+  ///we can only ask two times for permission,
+  ///so second time we are opening map, because permission is not mandatory.
+  int reload = 1;
+
+  void incrementReload() {
+    reload++;
+    notifyListeners();
+  }
+
+  void navigeteIfSecondTimeAskedForPermission() {
+    if (reload > 2) {
+      sL<NavigationService>().navigateTo(Routes.mapScreen);
+    }
+  }
 
   void _showErrorSnacbar(String text) {
     snackbarService.showSnackbar(
@@ -40,6 +53,8 @@ class WelcomeScreenVm extends ChangeNotifier {
         switch (await permissionsService.permission.status) {
           case PermissionStatus.denied:
             _showErrorSnacbar('Location permission denied');
+            incrementReload();
+
             break;
 
           case PermissionStatus.permanentlyDenied:
@@ -48,7 +63,7 @@ class WelcomeScreenVm extends ChangeNotifier {
 
           ///NAVIGATE IF GRANTED PERMISSION
           case PermissionStatus.granted:
-            navServ.navigateTo(Routes.mapScreen);
+            sL<NavigationService>().navigateTo(Routes.mapScreen);
             break;
 
           default:

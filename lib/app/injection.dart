@@ -23,8 +23,7 @@ void configureDependencies() {
   );
 
   ///factories
-
   sL.registerFactory(() => MapScreenVm());
   sL.registerFactory(() => WelcomeScreenVm(
-      permissionsService: sL(), navServ: sL(), snackbarService: sL()));
+      permissionsService: sL(),  snackbarService: sL()));
 }

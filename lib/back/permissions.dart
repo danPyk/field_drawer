@@ -18,11 +18,11 @@ class PermissionsService {
     try {
       statuses = await [
         Permission.location,
-        //add more permission to request here.
+        ///if need, add more permission to request here.
       ].request();
-    } on PlatformException {
+    } on PlatformException catch(e){
       var logger = Logger();
-      logger.d("permissionServices() PlatformException");
+      logger.d("permissionServices() PlatformException $e");
     }
 
     return statuses;
